@@ -40,6 +40,7 @@ interface Empresa {
     roleBreakdown: Record<string, RoleStats>
   }
   analysisData?: any
+  feedbacks?: FeedbackData[]
 }
 
 interface UserComplaint {
@@ -274,16 +275,7 @@ const filteredEmpresas = computed(() => {
 
 const showPlainData = (empresa: Empresa) => {
   // Se não houver reclamações, crie algumas reclamações de exemplo com base nos feedbacks negativos 
-  const reclamacoes = empresa.feedbacks
-    .filter((f: FeedbackData) => f.score <= 6 && f.reason && f.reason.trim().length > 5)
-    .map((f: FeedbackData) => ({
-      texto: f.reason,
-      score: f.score,
-      role: f.role,
-      data: f.created_at,
-      count: 1
-    }))
-    .slice(0, 5);
+  const reclamacoes = empresa.feedbacks ? empresa.feedbacks.filter(f => f.score <= 6 && f.reason && f.reason.trim().length > 5) : [];
   
   return reclamacoes;
 };
