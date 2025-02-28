@@ -272,11 +272,11 @@ const filteredEmpresas = computed(() => {
   )
 })
 
-const showPlainData = (empresa) => {
+const showPlainData = (empresa: Empresa) => {
   // Se não houver reclamações, crie algumas reclamações de exemplo com base nos feedbacks negativos 
   const reclamacoes = empresa.feedbacks
-    .filter(f => f.score <= 6 && f.reason && f.reason.trim().length > 5)
-    .map(f => ({
+    .filter((f: FeedbackData) => f.score <= 6 && f.reason && f.reason.trim().length > 5)
+    .map((f: FeedbackData) => ({
       texto: f.reason,
       score: f.score,
       role: f.role,
